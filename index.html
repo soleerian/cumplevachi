@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Feliz Cumple Vachu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="¡Feliz cumple, Vachu! 🎁">
+<meta property="og:description" content="Tenés un regalo esperando... tocá para abrirlo">
+<meta property="og:image" content="https://soleerian.github.io/cumplevachi/og-cover.jpg">
+<meta property="og:url" content="https://soleerian.github.io/cumplevachi/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#faf5ec;--brown:#5a3324;--brown-2:#7a4a34;--camel:#c9946a;--terracotta:#a85c3f;--line:#e3d3c1}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background-color:var(--cream);background-image:radial-gradient(var(--line) 1.4px,transparent 1.6px);background-size:34px 34px;color:var(--brown);font-family:'Cormorant Garamond',serif;overflow-x:hidden}
+a{color:var(--terracotta)}
+a:hover{color:var(--brown)}
+.caps{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:0.02em}
+.script{font-style:italic;font-weight:500}
+
+#cover{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;background:var(--cream);z-index:50;transition:opacity .8s ease .5s, visibility .8s ease .5s;text-align:center;padding:24px;overflow:hidden}
+#cover.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.box{width:110px;height:90px;position:relative;cursor:pointer;filter:drop-shadow(0 10px 16px rgba(90,51,36,.22))}
+.box.shake{animation:shake .5s ease}
+.box .lid{position:absolute;top:-14px;left:-8px;right:-8px;height:26px;background:var(--terracotta);border:1px solid var(--brown-2);border-radius:4px;transition:transform .6s cubic-bezier(.34,1.56,.64,1);transform-origin:50% 100%;z-index:3}
+.box .body{position:absolute;top:12px;left:0;right:0;bottom:0;background:var(--camel);border-radius:3px;border:1px solid var(--brown-2);box-shadow:inset 0 -8px 14px rgba(90,51,36,.18);transition:transform .6s ease .1s;z-index:1}
+.box .ribbon-v{position:absolute;top:12px;bottom:0;left:50%;width:14px;margin-left:-7px;background:var(--terracotta);z-index:2;transition:transform .6s ease .1s}
+.box .ribbon-h{position:absolute;top:-14px;left:-8px;right:-8px;height:14px;background:var(--terracotta);z-index:2;transition:opacity .3s ease}
+#cover:not(.opening):hover .box .lid{transform:translateY(-8px) rotate(-3deg)}
+.box.opening .lid{transform:translate(6px,-90px) rotate(-35deg)}
+.box.opening .body{transform:scale(1.06,.94)}
+.box.opening .ribbon-v{transform:translateX(-30px) rotate(-12deg);opacity:0}
+.box.opening .ribbon-h{opacity:0}
+@keyframes shake{0%,100%{transform:translateX(0) rotate(0)}20%{transform:translateX(-4px) rotate(-2deg)}40%{transform:translateX(4px) rotate(2deg)}60%{transform:translateX(-3px) rotate(-1deg)}80%{transform:translateX(3px) rotate(1deg)}}
+.confetti{position:absolute;top:50%;left:50%;width:9px;height:9px;pointer-events:none;opacity:0}
+.confetti.burst{animation:burst .9s ease-out forwards}
+@keyframes burst{0%{opacity:1;transform:translate(-50%,-50%) rotate(0) scale(1)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) rotate(var(--rot)) scale(.6)}}
+#cover h1{font-size:clamp(32px,6vw,52px);line-height:1.1}
+#cover p.sub{font-size:20px;color:var(--brown-2)}
+.open-btn{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:18px;background:var(--brown);color:var(--cream);border:none;padding:16px 36px;border-radius:2px;cursor:pointer;transition:background .2s ease, transform .2s ease}
+.open-btn:hover{background:var(--terracotta);transform:translateY(-2px)}
+
+main{max-width:760px;margin:0 auto;padding:0 24px 120px}
+.ornament{display:flex;align-items:center;justify-content:center;gap:10px;color:var(--camel)}
+.ornament::before,.ornament::after{content:'';width:56px;height:1px;background:linear-gradient(90deg,transparent,var(--camel))}
+.ornament::after{background:linear-gradient(90deg,var(--camel),transparent)}
+.ornament .dot{width:9px;height:9px;transform:rotate(45deg);background:var(--terracotta);position:relative}
+.ornament .dot::before,.ornament .dot::after{content:'';position:absolute;border:1px solid var(--camel);border-radius:50%}
+.ornament .dot::before{width:20px;height:20px;top:-5.5px;left:-5.5px}
+.ornament .dot::after{width:30px;height:30px;top:-10.5px;left:-10.5px;opacity:.5}
+.ornament svg{width:26px;height:14px;fill:var(--camel)}
+section{padding:90px 0;opacity:1;transform:none;transition:opacity .9s ease, transform .9s ease}
+section.pre{opacity:0;transform:translateY(24px)}
+section.show{opacity:1;transform:translateY(0)}
+.hero{text-align:center;padding-top:120px}
+.hero h1{font-size:clamp(38px,7vw,64px);line-height:1.08}
+.hero .script{display:block;font-size:clamp(24px,4vw,34px);color:var(--terracotta);margin-top:14px}
+.hero .from{margin-top:28px;font-size:20px;color:var(--brown-2)}
+
+.divider{width:60px;height:2px;background:var(--camel);margin:0 auto}
+
+.photos{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;padding:60px 0}
+.photo{background:#fff;padding:10px 10px 26px;box-shadow:0 10px 30px rgba(90,51,36,.15);width:280px}
+.photo img{width:100%;display:block;object-fit:cover;height:210px}
+.photo:nth-child(1){transform:rotate(-3deg)}
+.photo:nth-child(2){transform:rotate(2.5deg)}
+
+.msg{font-size:22px;line-height:1.6;text-align:center;color:var(--brown-2)}
+.msg strong{color:var(--brown);font-weight:600}
+
+.exp h2{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;font-size:clamp(26px,4vw,36px);text-align:center;margin-bottom:36px;letter-spacing:.02em}
+.exp p{font-size:20px;line-height:1.7;text-align:center;color:var(--brown-2);max-width:600px;margin:0 auto 18px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.step{text-align:center}
+.step .num{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:40px;color:var(--camel)}
+.step .t{font-size:19px;color:var(--brown-2);margin-top:6px}
+
+.voucher-wrap{text-align:center}
+.voucher-wrap h2{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;font-size:clamp(26px,4vw,36px);margin-bottom:36px}
+.voucher-frame{max-width:420px;margin:0 auto;box-shadow:0 20px 50px rgba(90,51,36,.22);border-radius:2px;overflow:hidden}
+.voucher-frame img{width:100%;display:block}
+.download-link{display:inline-block;margin-top:20px;font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.03em;font-size:16px;color:var(--brown);border-bottom:2px solid var(--camel);padding-bottom:2px;text-decoration:none;transition:color .2s ease}
+.download-link:hover{color:var(--terracotta)}
+
+.venue{background:var(--brown);color:var(--cream);border-radius:2px;padding:56px 40px;text-align:center}
+.venue h2{font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;font-size:clamp(24px,4vw,32px);margin-bottom:20px}
+.venue p{font-size:20px;line-height:1.7;color:#eddfd2}
+.venue .addr{font-size:22px;margin-top:20px;color:var(--camel);font-family:'Big Shoulders Display',sans-serif;letter-spacing:.02em}
+.venue .cta{display:inline-block;margin-top:32px;background:var(--camel);color:var(--brown);font-family:'Big Shoulders Display',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.03em;padding:14px 32px;text-decoration:none;border-radius:2px;transition:background .2s ease}
+.venue .cta:hover{background:var(--cream);color:var(--brown)}
+
+footer{text-align:center;padding-bottom:60px;font-size:27px;color:var(--brown-2)}
+
+@media (max-width:600px){.steps{grid-template-columns:1fr}.photo{width:80%}}
+</style>
+</head>
+<body>
+
+<div id="cover">
+<div class="box" id="giftBox">
+<div class="ribbon-h"></div>
+<div class="lid"></div>
+<div class="body"></div>
+<div class="ribbon-v"></div>
+<div id="confettiWrap"></div>
+</div>
+<h1 class="caps">Feliz Cumple,<br>Vachu</h1>
+<p class="sub script">tenés un regalo esperando</p>
+<button class="open-btn" id="openBtn">Abrí tu regalo</button>
+</div>
+
+<main>
+<section class="hero" id="s0">
+<h1 class="caps">¡Feliz Cumple,<br>Vachu!</h1>
+<span class="script">alas para volar</span>
+<div class="from">Con todo nuestro cariño</div>
+</section>
+
+<section id="s1">
+<p class="msg">Querida Vachu, <strong>¡feliz cumpleaños!</strong> Para celebrarte quisimos regalarte algo hecho a tu medida — literal. Así que juntamos algunas fotos nuestras para acompañarte, y un regalo que esperamos disfrutes tanto como nosotros disfrutamos elegirlo.</p>
+<div class="photos">
+<div class="photo"><img src="uploads/vachu.jpg" alt="Familia en la mesa"></div>
+<div class="photo"><img src="uploads/Screenshot 2026-07-30 at 6.11.29 PM.png" alt="Familia en la playa"></div>
+</div>
+</section>
+
+<section class="exp" id="s2">
+<div class="ornament"><svg viewBox="0 0 26 14"><path d="M26 7c-6 0-8-5-14-5-6 0-8 3-8 5s2 5 8 5c6 0 8-5 14-5z"/></svg><span class="dot"></span><svg viewBox="0 0 26 14" style="transform:scaleX(-1)"><path d="M26 7c-6 0-8-5-14-5-6 0-8 3-8 5s2 5 8 5c6 0 8-5 14-5z"/></svg></div>
+<h2 style="margin-top:36px">Tu experiencia</h2>
+<p>Te regalamos una experiencia en <strong>Casa Águila</strong>, el atelier de Hermanas Águila, para que diseñes vos misma tu propio par de zapatos: elegís el modelo, los colores y los detalles hasta que queden exactamente como los imaginás.</p>
+<div class="steps">
+<div class="step"><div class="num">01</div><div class="t">Elegís el modelo que más te guste</div></div>
+<div class="step"><div class="num">02</div><div class="t">Personalizás cuero, color y detalles</div></div>
+<div class="step"><div class="num">03</div><div class="t">En 30 días están listos para vos</div></div>
+</div>
+</section>
+
+<section class="voucher-wrap" id="s3">
+<div class="ornament"><svg viewBox="0 0 26 14"><path d="M26 7c-6 0-8-5-14-5-6 0-8 3-8 5s2 5 8 5c6 0 8-5 14-5z"/></svg><span class="dot"></span><svg viewBox="0 0 26 14" style="transform:scaleX(-1)"><path d="M26 7c-6 0-8-5-14-5-6 0-8 3-8 5s2 5 8 5c6 0 8-5 14-5z"/></svg></div>
+<h2 style="margin-top:36px">Tu voucher</h2>
+<div class="voucher-frame"><img src="uploads/WhatsApp Image 2026-07-30 at 12.53.44.jpeg" alt="Voucher Hermanas Águila"></div>
+<a class="download-link" href="uploads/WhatsApp Image 2026-07-30 at 12.53.44.jpeg" download="Voucher Hermanas Aguila.jpeg">Descargar voucher</a>
+</section>
+
+<section id="s4">
+<div class="ornament" style="margin-bottom:36px"><svg viewBox="0 0 26 14"><path d="M26 7c-6 0-8-5-14-5-6 0-8 3-8 5s2 5 8 5c6 0 8-5 14-5z"/></svg><span class="dot"></span><svg viewBox="0 0 26 14" style="transform:scaleX(-1)"><path d="M26 7c-6 0-8-5-14-5-6 0-8 3-8 5s2 5 8 5c6 0 8-5 14-5z"/></svg></div>
+<div class="venue">
+<h2>Casa Águila</h2>
+<p style="font-weight:700">Te esperamos para que puedas elegir tus próximos zapatos.<br><b style="color:#E7760E;font-weight:800;text-decoration-line:none;font-size:22px">Coordiná antes tu visita contactando a Hermanas Águila.</b></p>
+<div class="addr">Paraguay 1572 A<br>Miér–Vier 10 a 18 hs · Sáb 12 a 18 hs</div>
+<a class="cta" href="https://www.hermanasaguila.com.ar" target="_blank" rel="noopener">hermanasaguila.com.ar</a>
+</div>
+</section>
+
+<footer>Con amor, Familia Herz Erian</footer>
+</main>
+
+<script>
+const cover=document.getElementById('cover');
+const box=document.getElementById('giftBox');
+let opened=false;
+function open(){
+if(opened)return;opened=true;
+box.classList.add('shake');
+setTimeout(()=>{
+box.classList.remove('shake');
+box.classList.add('opening');
+const colors=['var(--terracotta)','var(--camel)','var(--brown-2)'];
+const wrap=document.getElementById('confettiWrap');
+for(let i=0;i<18;i++){
+const c=document.createElement('div');
+c.className='confetti';
+const ang=(Math.PI*2*i)/18+Math.random()*.4;
+const dist=90+Math.random()*70;
+c.style.setProperty('--tx',Math.cos(ang)*dist+'px');
+c.style.setProperty('--ty',(Math.sin(ang)*dist-40)+'px');
+c.style.setProperty('--rot',(Math.random()*360-180)+'deg');
+c.style.background=colors[i%colors.length];
+c.style.borderRadius=i%2?'50%':'2px';
+wrap.appendChild(c);
+requestAnimationFrame(()=>c.classList.add('burst'));
+}
+},450);
+setTimeout(()=>{
+cover.classList.add('hidden');
+document.body.style.overflow='auto';
+setTimeout(()=>{document.getElementById('s0').scrollIntoView({behavior:'instant'});},50);
+},1350);
+}
+document.getElementById('openBtn').addEventListener('click', open);
+giftBox.addEventListener('click', open);
+document.body.style.overflow='hidden';
+
+const io=new IntersectionObserver((entries)=>{
+entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show');});
+},{threshold:0.15});
+document.querySelectorAll('main section').forEach(s=>{s.classList.add('pre');io.observe(s);});
+</script>
+</body>
+</html>
